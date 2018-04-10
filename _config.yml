@@ -79,4 +79,4 @@ theme: material
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: heroku
-  repo: https://git.heroku.com/laravel-wenlin.git
+  repo: https://git.heroku.com/wenlin.git
