@@ -1,38 +1,19 @@
----
 title: 第一篇文章
+thumbnail: /img/page/computer.png
+tags:
+  - 文章
+categories: []
+author: wenlin
+date: 2018-04-19 13:44:00
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
+### 哈哈！博客终于正式上线了。(^_^)v
 
-## Quick Start
 
-### Create a new post
+为了锻炼自己的能力，接下来，会不定时的更新博客，分享一些有趣的事情或技术文章。
 
-``` bash
-$ hexo new "My New Post"
-```
+想起当初，为什么选择 Programming 这条路。也许是受到 `Iron Man` 这部电影的影响吧。
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+我喜欢编程，因为编程本身就是一件很酷的事情。
 
-### Run server
 
-``` bash
-$ hexo server
-```
-
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-``` bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/deployment.html)
+> 我读的书愈多，就愈亲近世界，愈明了生活的意义，愈觉得生活的重要。 —— 高尔基

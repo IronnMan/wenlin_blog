@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: wenlin's Blog
+title: 文林的博客
 subtitle:
 description: 文林的博客网站
 keywords:
@@ -80,3 +80,10 @@ theme: material
 deploy:
   type: heroku
   repo: https://git.heroku.com/wenlin.git
+
+# hexo-admin authentification
+## Docs: https://github.com/jaredly/hexo-admin
+admin:
+  username: wenlin
+  password_hash: $2a$10$tKd8VjnbYqBVnnqBFrjR6uhisyRPS25kF1i4fexQ1rJ1SZxzlWb7G
+  secret: iron man
