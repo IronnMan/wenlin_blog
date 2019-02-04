@@ -25,84 +25,83 @@ date: 2018-05-13 00:15:00
 
 ![git dash flow](https://about.gitlab.com/images/git_flow/gitdashflow.png)
 
-Git 工作流是使用 git 分支的第一个建议之一，并且它受到了很多关注。它主张一个主分支和一个单独的开发分支，以及支持功能，发布和修补程序的分支。开发发生在开发分支上，转到发布分支并最终合并到主分支中。Git 工作流是一个明确的标准，但其复杂性引入了两个问题。第一个问题是开发人员必须使用开发分支而不是主分支，而主分支则保留用于发布到生产环境的代码。这是一个约定，称为你的默认主分支，It is a convention to call your default branch master and to mostly branch from and merge to this. Since most tools automatically make the master branch the default one and display that one by default it is annoying to have to switch to another one. The second problem of git flow is the complexity introduced by the hotfix and release branches. These branches can be a good idea for some organizations but are overkill for the vast majority of them. Nowadays most organizations practice continuous delivery which means that your default branch can be deployed. This means that hotfixed and release branches can be prevented including all the ceremony they introduce. An example of this ceremony is the merging back of release branches. Though specialized tools do exist to solve this, they require documentation and add complexity. Frequently developers make a mistake and for example changes are only merged into master and not into the develop branch. The root cause of these errors is that git flow is too complex for most of the use cases. And doing releases doesn't automatically mean also doing hotfixes.
+Git 工作流是使用 git 分支的第一个建议之一，并且它受到了很多关注。它主张一个主分支和一个单独的开发分支，以及支持功能，发布和修补程序的分支。开发发生在开发分支上，转到发布分支并最终合并到主分支中。Git 工作流是一个明确的标准，但其复杂性引入了两个问题。第一个问题是开发人员必须使用开发分支而不是主分支，而主分支则保留用于发布到生产环境的代码。这是一个约定，称为你的默认主分支，并且大多数分支合并到此。由于大多数工具会自动使主分支成为默认分支，并默认显示该分支，所以不得不切换到另一个。git 工作流的第二个问题是修复程序和发行版分支引入的复杂性。对于一些组织而已，这些分支可能是一个好主意，但是对绝大多数组织来说却是过分的。现在大多数组织实行持续交付，这意味着你的默认分支可以部署。这意味着可以防止修补和释放分支，包括他们采用的所有仪式。这个仪式的一个例子就是发行分支的合并。虽然有专门的工具来决解这个问题，但它们需要文档并增加复杂性。开发人员经常犯一个错误，例如，更改只能合并到 master 中，而不是合并到 develop 分支中。这些错误的根本原因在于，对于大多数用例来说，git 工作流过于复杂。做发布并不意味着自己也在做修补程序。
 
-## GitHub flow as a simpler alternative
+## GitHub 工作流作为一个更简单的选择
 
 ![GitHub Flow](https://about.gitlab.com/images/git_flow/github_flow.png)
 
-In reaction to git flow a simpler alternative was detailed, [GitHub flow](http://scottchacon.com/2011/08/31/github-flow.html). This flow has only feature branches and a master branch. This is very simple and clean, many organizations have adopted it with great success. Atlassian recommends [a similar strategy](https://www.atlassian.com/blog/archives/simple-git-workflow-simple) although they rebase feature branches. Merging everything into the master branch and deploying often means you minimize the amount of code in 'inventory' which is in line with the lean and continuous delivery best practices. But this flow still leaves a lot of questions unanswered regarding deployments, environments, releases and integrations with issues. With GitLab flow we offer additional guidance for these questions.
+在对 git 工作流的反应中，更简单的选择是：[GitHub 工作流](http://scottchacon.com/2011/08/31/github-flow.html)。该流程仅具有功能分支和主分支。这是非常简单和干净的，许多组织已近取得了巨大的成功。Atlassian 推荐了 [类似的策略](https://www.atlassian.com/blog/archives/simple-git-workflow-simple)，尽管他们重新设置了功能分支。将所有内容合并到主分支并进行部署通常意味着你最大限度地减少「库存」中的代码量，这与精益和持续交付最佳实践一致。但是这一流程仍然留下了许多关于部署、环境、发布和问题集成的问题。借助 GitLab 工作流，我们为这些问题提供了更多指导。
 
 
-## Production branch with GitLab flow
+## 生产分支与 GitLab 工作流
 
 ![Production Branch](https://about.gitlab.com/images/git_flow/production_branch.png)
 
-GitHub flow does assume you are able to deploy to production every time you merge a feature branch. This is possible for SaaS applications but there are many cases where this is not possible. One would be a situation where you are not in control of the exact release moment, for example an iOS application that needs to pass AppStore validation. Another example is when you have deployment windows (workdays from 10am to 4pm when the operations team is at full capacity) but you also merge code at other times. In these cases you can make a production branch that reflects the deployed code. You can deploy a new version by merging in master to the production branch. If you need to know what code is in production you can just checkout the production branch to see. The approximate time of deployment is easily visible as the merge commit in the version control system. This time is pretty accurate if you automatically deploy your production branch. If you need a more exact time you can have your deployment script create a tag on each deployment. This flow prevents the overhead of releasing, tagging and merging that is common to git flow.
+GitHub 工作流假定您可以在每次合并功能分支时将其部署到生产环境。这对 SaaS 应用程序是可能的，但在很多情况下这是不可能的。一种情况是您无法控制确切的发布时刻，例如需要通过 AppStore 验证的 IOS 应用程序。另一个例子是当你有部署窗口时（操作团队满负荷工作时间从上午 10 点到下午 4 点），但你也可以在其他时间合并代码。在这些情况下，您可以使生产分支反映已部署的代码。您可以通过将主副本合并到生产分支来部署新版本。如果您需要知道生产环境中的代码，您只需要检出生产分支即可查看。作为版本控制系统中的合并提交，部署的大致时间很容易看到。如果您自动部署生产分支，这一次相当准确。如果您需要更准确的时间，则可以让您的部署脚步在每个部署中创建一个标签。此工作流可防止 git 工作流通用的释放，标记和合并开销。
 
 
-## Environment branches with GitLab flow
+## 环境分支与 GitLab 工作流
 
 ![Environment Branch](https://about.gitlab.com/images/git_flow/environment_branches.png)
 
-It might be a good idea to have an environment that is automatically updated to the master branch. Only in this case, the name of this environment might differ from the branch name. Suppose you have a staging environment, a pre-production environment and a production environment. In this case the master branch is deployed on staging. When someone wants to deploy to pre-production they create a merge request from the master branch to the pre-production branch. And going live with code happens by merging the pre-production branch into the production branch. This workflow where commits only flow downstream ensures that everything has been tested on all environments. If you need to cherry-pick a commit with a hotfix it is common to develop it on a feature branch and merge it into master with a merge request, do not delete the feature branch. If master is good to go (it should be if you a practicing [continuous delivery](https://martinfowler.com/bliki/ContinuousDelivery.html) ) you then merge it to the other branches. If this is not possible because more manual testing is required you can send merge requests from the feature branch to the downstream branches. An 'extreme' version of environment branches are setting up an environment for each feature branch as done by [Teatro](http://teatro.io).
+将环境自动更新到主分支可能是一个好主意。只有在这种情况下，该环境的名称肯能与分支名称不同。假设您有一个临时环境，一个预生产环境和一个生产环境。在这种情况下，主分支在分段上部署。当有人想要部署到预生产时，他们会创建从主分支到预生产分支的合并请求。通过将预生产分支合并到生产分支来实现代码。这个工作流程只能在下游提交，确保所有环境都经过测试。如果您需要选择使用修补程序进行提交，通常在功能分支上开发它并用合并请求将其合并到主服务器中，请勿删除功能分支。如果主人是好的（应该是如果你练习 [持续交付](https://martinfowler.com/bliki/ContinuousDelivery.html)），然后将其合并到其他分支。如果这是不可能的，因为需要更多手动测试，则可以将功能分支的合并请求发送到下游分支。环境分支的「极端」版本正在为每个功能分支设置一个由 [Teatro](http://teatro.io) 完成的环境。
 
 
-## Release branches with GitLab flow
+## 使用 GitLab 工作流发布分支
 
 ![Release Branch](https://about.gitlab.com/images/git_flow/release_branches.png)
 
-Only in case you need to release software to the outside world you need to work with release branches. In this case, each branch contains a minor version (2-3-stable, 2-4-stable, etc.). The stable branch uses master as a starting point and is created as late as possible. By branching as late as possible you minimize the time you have to apply bugfixes to multiple branches. After a release branch is announced, only serious bug fixes are included in the release branch. If possible these bug fixes are first merged into master and then cherry-picked into the release branch. This way you can't forget to cherry-pick them into master and encounter the same bug on subsequent releases. This is called an 'upstream first' policy that is also practiced by [Google](http://www.chromium.org/chromium-os/chromiumos-design-docs/upstream-first) and [Red Hat](https://www.redhat.com/en/blog/a-community-for-using-openstack-with-red-hat-rdo). Every time a bug-fix is included in a release branch the patch version is raised (to comply with [Semantic Versioning](https://semver.org) ) by setting a new tag. Some projects also have a stable branch that points to the same commit as the latest released branch. In this flow it is not common to have a production branch (or git flow master branch).
+只有在您需要向外界发布软件时，才需要使用发布分支。在这种情况下，每个分支包含次要版本（2-3-stable，2-4-stable 等）。stable 分支使用 master 作为起点，并尽可能晚地创建。通过尽可能晚地分支，您可以最大限度地减少将错误修正应用于多个分支的时间。在宣布发布分支后，发布分支中仅包含严重的错误修复。如果可能的话，这些错误修复程序首先合并到 master 中，然后挑选到发布分支中。这样你就不会忘记将它们挑选到 master 中并在后续版本中遇到相同的 bug。这被称为「 上游优先 」政策，也是 [Google](http://www.chromium.org/chromium-os/chromiumos-design-docs/upstream-first) 和 [Red Hat](https://www.redhat.com/en/blog/a-community-for-using-openstack-with-red-hat-rdo) 实施的政策。每次在发布分支中包含错误修复时，都会通过设置新标记来引发补丁版本（以符合 [语义版本控制](https://semver.org) ）。有些项目还有一个稳定的分支，指向与最新发布的分支相同的提交。在此流程中，拥有生产分支（或 git 工作流主分支）并不常见。
 
 
-## Merge/pull requests with GitLab flow
+## 使用GitLab 工作流合并/拉取请求
 
 ![Mr Inline Comments](https://about.gitlab.com/images/git_flow/mr_inline_comments.png)
 
-Merge or pull requests are created in a git management application and ask an assigned person to merge two branches. Tools such as GitHub and Bitbucket choose the name pull request since the first manual action would be to pull the feature branch. Tools such as GitLab and Gitorious choose the name merge request since that is the final action that is requested of the assignee. In this article we'll refer to them as merge requests.
+合并或拉取请求在 git 管理应用程序中创建，并要求指定人员合并两个分支。GitHub 和 Bitbucket 等工具选择名称拉取请求，因为第一个手动操作是拉取功能分支。GitLab 和 Gitorious 等工具选择名称合并请求，因为这是代理人请求的最终操作。在本文中，我们将它们称为合并请求。
 
-If you work on a feature branch for more than a few hours it is good to share the intermediate result with the rest of the team. This can be done by creating a merge request without assigning it to anyone, instead you mention people in the description or a comment (/cc @mark @susan). This means it is not ready to be merged but feedback is welcome. Your team members can comment on the merge request in general or on specific lines with line comments. The merge requests serves as a code review tool and no separate tools such as Gerrit and reviewboard should be needed. If the review reveals shortcomings anyone can commit and push a fix. Commonly the person to do this is the creator of the merge/pull request. The diff in the merge/pull requests automatically updates when new commits are pushed on the branch.
+如果你在功能分支上工作超过几个小时，最好与团队的其他成员分享中间结果。这可以通过创建合并请求而不将其分配给任何人来完成，而是提及描述中的人或评论（/cc @mark @susan）。这意味着它还没有准备好合并，但欢迎反馈。您的团队成员可以在一般情况下或在具体有行注释的特定行上对合并请求发表评论。合并请求用作代码审查工具，不需要 Gerrit 和 reviewboard 等单独的工具。如果审查发现缺点，任何人都可以提交并推动修复。通常，执行此操作的人是合并/拉取请求的创建者。当在分支上推送新提交时，合并/拉取请求中的差异会自动更新。
 
-When you feel comfortable with it to be merged you assign it to the person that knows most about the codebase you are changing and mention any other people you would like feedback from. There is room for more feedback and after the assigned person feels comfortable with the result the branch is merged. If the assigned person does not feel comfortable they can close the merge request without merging.
+如果你对合并它感到满意，可以将其分配给最了解你正在更改的代码库的人，并提及你想要反馈的任何其他人。有更多反馈的空间，并且在指定的人对结果感到满意之后，分支被合并。如果分配的人感到不舒服，他们可以在不合并的情况下关闭合并请求。
 
-In GitLab it is common to protect the long-lived branches (e.g. the master branch) so that normal developers [can't modify these protected branches](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/permissions/permissions.md). So if you want to merge it into a protected branch you assign it to someone with master authorizations.
+在 GitLab 中，通常保存长期存在的分支（例如主分支），以便普通开发人员 [不能修改这些受保护的分支](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/permissions/permissions.md)。因此，如果要将其合并到受保护的分支中，请将其分配给具有主授权的人员。
 
 
-## Issues with GitLab flow
+## 问题与 GitLab 工作流
 
 ![Merge Request](https://about.gitlab.com/images/git_flow/merge_request.png)
 
-GitLab flow is a way to make the relation between the code and the issue tracker more transparent.
+GitLab 工作流是一种使代码和问题跟踪之间的关系更加透明的方法。
 
-Any significant change to the code should start with an issue where the goal is described. Having a reason for every code change is important to inform everyone on the team and to help people keep the scope of a feature branch small. In GitLab each change to the codebase starts with an issue in the issue tracking system. If there is no issue yet it should be created first provided there is significant work involved (more than 1 hour). For many organizations this will be natural since the issue will have to be estimated for the sprint. Issue titles should describe the desired state of the system, e.g. "As an administrator I want to remove users without receiving an error" instead of "Admin can't remove users.".
+对代码的任何重大更改都应从描述目标的问题开始。Having a reason for every code change is important to inform everyone on the team and to help people keep the scope of a feature branch small. In GitLab each change to the codebase starts with an issue in the issue tracking system. If there is no issue yet it should be created first provided there is significant work involved (more than 1 hour). For many organizations this will be natural since the issue will have to be estimated for the sprint. Issue titles should describe the desired state of the system, e.g. "As an administrator I want to remove users without receiving an error" instead of "Admin can't remove users.".
 
-When you are ready to code you start a branch for the issue from the master branch. The name of this branch should start with the issue number, for example '15-require-a-password-to-change-it'.
+当你准备好编码时，你可以从主分支开始解决问题。此分支的名称以问题编号开头，例如 「 15-require-a-password-to-change-it 」。
 
-When you are done or want to discuss the code you open a merge request. This is an online place to discuss the change and review the code. Creating a branch is a manual action since you do not always want to merge a new branch you push, it could be a long-running environment or release branch. If you create the merge request but do not assign it to anyone it is a 'work-in-process' merge request. These are used to discuss the proposed implementation but are not ready for inclusion in the master branch yet.
+当你完成想要讨论代码时，你打开合并请求。这是一个讨论变更和审核代码的在线位置。创建分支是一种手动操作，因为你并不总是希望合并你推送的新分支，它可能是一个长期运行的环境或发布分支。如果你创建合并请求但未将其分配给任何人，则它是「 工作进程 」合并请求。这些用于讨论提议的实现，但尚未准备好包含在主分支中。
 
-When the author thinks the code is ready the merge request is assigned to reviewer. The reviewer presses the merge button when they think the code is ready for inclusion in the master branch. In this case the code is merged and a merge commit is generated that makes this event easily visible later on. Merge requests always create a merge commit even when the commit could be added without one. This merge strategy is called 'no fast-forward' in git. After the merge the feature branch is deleted since it is no longer needed, in GitLab this deletion is an option when merging.
+当作者认为代码准备就绪时，合并请求被分配给审阅者。审阅者在认为代码以准备好包含在主分支中时按下合并按钮。在这种情况下，代码将被合并，并生成合并提交，以便稍后可以轻松地看到此事件。即使可以在没有提交的情况下添加提交，合并请求也始终创建合并提交。这种合并政策在 git 中称为 「 no fast-forward 」。合并后，功能分支将被删除，因为不再需要它，在 GitLab 中，此删除是合并时的一个选项。
 
-Suppose that a branch is merged but a problem occurs and the issue is reopened. In this case it is no problem to reuse the same branch name since it was deleted when the branch was merged. At any time there is at most one branch for every issue. It is possible that one feature branch solves more than one issue.
+假设已合并分支但发生问题并重新打开问题。在这种情况下，重用相同的分支名称没有问题，因为它在合并分支时被删除了。每个问题最多只有一个分支。一个功能分支可能解决多个问题。
 
-
-## Linking and closing issues from merge requests
+## 链接和关闭合并请求中的问题
 
 ![Close Issue Mr](https://about.gitlab.com/images/git_flow/close_issue_mr.png)
 
-Linking to the issue can happen by mentioning them from commit messages (fixes #14, closes #67, etc.) or from the merge request description. In GitLab this creates a comment in the issue that the merge requests mentions the issue. And the merge request shows the linked issues. These issues are closed once code is merged into the default branch.
+通过从提交信息（fixes #14，closes #67等）或合并请求描述中提及它们，可以实现与问题的链接。在 GitLab 中，这会在合并请求提到问题的问题中创建注释。合并请求显示链接的问题。将代码合并到默认分支后，这些问题将被关闭。
 
-If you only want to make the reference without closing the issue you can also just mention it: "Ducktyping is preferred. #12".
+如果你只想在不关闭问题的情况下进行参考，你也可以提一下：「 Ducktyping is preferred. #12」。
 
-If you have an issue that spans across multiple repositories, the best thing is to create an issue for each repository and link all issues to a parent issue.
+如果你遇到跨多个存储库的问题，最好的办法是为每个存储库创建一个问题，并将所有问题链接到父问题。
 
 
-## Squashing commits with rebase
+## 压缩提交  rebase
 
 ![Rebase](https://about.gitlab.com/images/git_flow/rebase.png)
 
-With git you can use an interactive rebase (rebase -i) to squash multiple commits into one and reorder them. This functionality is useful if you made a couple of commits for small changes during development and want to replace them with a single commit or if you want to make the order more logical. However you should never rebase commits you have pushed to a remote server. Somebody can have referred to the commits or cherry-picked them. When you rebase you change the identifier (SHA1) of the commit and this is confusing. If you do that the same change will be known under multiple identifiers and this can cause much confusion. If people already reviewed your code it will be hard for them to review only the improvements you made since then if you have rebased everything into one commit.
+使用 git，你可以使用交互式 rebase （rebase -i）将多个提交压缩为一个并重新排序。如果你在开发期间对小更改进行了几次提交，并希望使用单个提交替换它们，或者如果你希望使顺序更符合逻辑，则此更能非常有用。但是，你永远不应该重命名已推送到远程服务器的提交。有人可以参考提交或精心挑选它们。重新绑定时，你更改提交的标识符（SHA1），这是令人困惑的。如果你这样做，将在多个标识符下知道相同的更改，这可能会导致很多混淆。如果人们已经审查过你的代码，那么如果你所有内容重新设置为一次提交，那么他们将很难仅查看你之后所做的改进。
 
-People are encouraged to commit often and to frequently push to the remote repository so other people are aware what everyone is working on. This will lead to many commits per change which makes the history harder to understand. But the advantages of having stable identifiers outweigh this drawback. And to understand a change in context one can always look at the merge commit that groups all the commits together when the code is merged into the master branch.
+鼓励人们经常提交并经常推送到远程存储库，以便其他人知道每个人都在做什么。这将导致每次更改的许多提交，这使得历史更难理解。但是，具有稳定标识符的优点超过了这个缺点。要理解上下文中的更改，可以始终查看合并提交，该合并提交将代码合并到主分支时将所有提交组合在一起。
 
 After you merge multiple commits from a feature branch into the master branch this is harder to undo. If you would have squashed all the commits into one you could have just reverted this commit but as we indicated you should not rebase commits after they are pushed. Fortunately reverting a merge made some time ago can be done with git. This however, requires having specific merge commits for the commits your want to revert. If you revert a merge and you change your mind, revert the revert instead of merging again since git will not allow you to merge the code again otherwise.
 
