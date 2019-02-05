@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 文林的博客
+title: wenlin42's blog
 subtitle:
 description: 文林的博客网站
 keywords:
-author: wenlin
+author: wenlin42
 language: zh-CN
 timezone: Asia/Hong_Kong
 
@@ -78,8 +78,8 @@ theme: material
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: heroku
-  repo: https://git.heroku.com/wenlin.git
+  type: git
+  repo: git@github.com:IronnMan/wenlin_blog.git
 
 # hexo-admin authentification
 ## Docs: https://github.com/jaredly/hexo-admin
