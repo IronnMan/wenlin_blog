@@ -80,6 +80,7 @@ theme: material
 deploy:
   type: git
   repo: git@github.com:IronnMan/wenlin_blog.git
+  branch: master
 
 # hexo-admin authentification
 ## Docs: https://github.com/jaredly/hexo-admin
