@@ -13,8 +13,8 @@ timezone: Asia/Hong_Kong
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://wenlin42.top
-root: /
+url: https://ironnman.github.io/wenlin_blog/
+root: /wenlin_blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
